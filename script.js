@@ -288,7 +288,7 @@ const projectContent = {
       "Работала с телевизионным агентством «Феникс Онлайн»: создавала визуальный контент для соцсетей и адаптировала материалы под быстрый медиаритм публикаций",
     hideMetrics: true,
     hideDetails: true,
-    thumb: "./assets/icon-project-phoenix.svg",
+    thumb: "./assets/icon-project-phoenix.png",
     preview: "./assets/phoenix/phoenix-1.png",
     gallery: [
       { src: "./assets/phoenix/phoenix-1.png", layout: "full" },
@@ -449,7 +449,7 @@ const projectContent = {
       "Собрали стратегию digital-присутствия для 2050.lab: от глубокой аналитики рынка до визуальной системы контента и креативных механик продвижения. Проект занял 2 место.",
     hideMetrics: true,
     hideDetails: true,
-    thumb: "./assets/icon-media-case-contest.svg",
+    thumb: "./assets/icon-media-case-contest.png",
     preview: "./assets/mcc-contest/mcc-1.gif",
     gallery: [
       { src: "./assets/mcc-contest/mcc-1.gif", layout: "full" },
@@ -1511,7 +1511,9 @@ document.addEventListener("pointerdown", (event) => {
 
 if (heroCluster) {
   const maxShift = 10;
-  const careerIcons = heroCluster.querySelectorAll(".desktop-icon");
+  const careerIcons = Array.from(heroCluster.querySelectorAll(".desktop-icon")).filter(
+    (icon) => !icon.closest(".mobile-layout")
+  );
   const magneticRadius = 150;
   const magneticPull = 10;
 

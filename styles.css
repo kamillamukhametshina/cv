@@ -1576,7 +1576,21 @@ body {
     --lift: 0px;
     --icon-scale: 1;
     --icon-rot: 0deg;
+    --mx: 0px;
+    --my: 0px;
     box-shadow: 0 7px 16px rgba(17, 24, 39, 0.1);
+  }
+
+  .mobile-layout .desktop-icon,
+  .mobile-layout .desktop-icon:hover,
+  .mobile-layout .desktop-icon:focus-within,
+  .mobile-layout .desktop-icon.is-hovered {
+    --lift: 0px;
+    --icon-scale: 1;
+    --icon-rot: 0deg;
+    --mx: 0px;
+    --my: 0px;
+    transform: none !important;
   }
 
   .mobile-app-card:hover .desktop-icon-tile,
@@ -1587,7 +1601,10 @@ body {
   .mobile-app-card.is-hovered .tile-project,
   .mobile-app-card:hover .desktop-icon-image,
   .mobile-app-card:focus-within .desktop-icon-image,
-  .mobile-app-card.is-hovered .desktop-icon-image {
+  .mobile-app-card.is-hovered .desktop-icon-image,
+  .mobile-app-card:hover .desktop-icon-image-project,
+  .mobile-app-card:focus-within .desktop-icon-image-project,
+  .mobile-app-card.is-hovered .desktop-icon-image-project {
     transform: none !important;
     filter: none !important;
   }
