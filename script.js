@@ -230,6 +230,16 @@ const projectContent = {
     hideDetails: true,
     thumb: "./assets/project-bitrix.svg",
     preview: "./assets/bitrix/slider-1/1.png",
+    gallery: [
+      { type: "slider", group: 0 },
+      { type: "slider", group: 1 },
+      {
+        type: "text-card",
+        text:
+          "Генерация видео сцены из фильма «Иллюзия обмана» с заменой лица",
+      },
+      { src: "./assets/bitrix/bitrix-face-swap.gif", layout: "full" },
+    ],
     sliders: [
       [
         "./assets/bitrix/slider-1/1.png",
