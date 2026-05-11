@@ -459,7 +459,7 @@ const projectContent = {
       "Собрали стратегию digital-присутствия для 2050.lab: от глубокой аналитики рынка до визуальной системы контента и креативных механик продвижения. Проект занял 2 место.",
     hideMetrics: true,
     hideDetails: true,
-    thumb: "./assets/icon-media-case-contest.png",
+    thumb: "./assets/icon-media-case-contest.svg",
     preview: "./assets/mcc-contest/mcc-1.gif",
     gallery: [
       { src: "./assets/mcc-contest/mcc-1.gif", layout: "full" },
