@@ -233,6 +233,7 @@ const projectContent = {
     gallery: [
       { type: "slider", group: 0 },
       { type: "slider", group: 1 },
+      { type: "slider", group: 2 },
       {
         type: "text-card",
         text:
@@ -272,6 +273,7 @@ const projectContent = {
         "./assets/bitrix/slider-2/9.png",
         "./assets/bitrix/slider-2/10.png",
       ],
+      Array.from({ length: 7 }, (_, i) => `./assets/bitrix/slider-3/${i + 1}.png`),
     ],
   },
   citydrive: {
