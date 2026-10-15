@@ -18,7 +18,14 @@ export function normalizeState(input = {}) {
   };
 }
 export const defaultState = () => normalizeState();
-export function readState(search) {
+export const typeSlugs = { 'Все':'all', 'Диджитал контент':'digital', 'Презентации':'presentations', 'Ивенты':'events', 'Произвольное':'free' };
+export function readState(search, hash = '') {
+  if (hash.startsWith('#/')) {
+    const parts = hash.slice(2).split('/').filter(Boolean);
+    if (parts[0] === 'resume') return normalizeState({view:'resume'});
+    if (parts[0] === 'projects') return normalizeState({selectedProject:parts[1], selectedInternalFilter:parts[2]});
+    if (parts[0] === 'works') return normalizeState({mode:'type', selectedType:Object.keys(typeSlugs).find(type => typeSlugs[type] === parts[1]), selectedWorkItem:parts[2]});
+  }
   const params = new URLSearchParams(search);
   // Old category URLs with project=none remain readable.
   const typeMode = params.get('mode') === 'type' || (params.get('mode') !== 'project' && params.has('type') && (!params.has('project') || params.get('project') === 'none'));
@@ -30,20 +37,10 @@ export function readState(search) {
 }
 export function stateURL(state, href) {
   const url = new URL(href);
-  for (const key of ['mode', 'project', 'type', 'work', 'view', 'internal']) url.searchParams.delete(key);
-  if (state.view === 'home' || state.view === 'resume') {
-    url.searchParams.set('view', state.view);
-    url.hash = '';
-    return url;
-  }
-  if (state.mode === 'type') {
-    url.searchParams.set('mode', 'type');
-    url.searchParams.set('type', state.selectedType);
-    if (state.selectedWorkItem) url.searchParams.set('work', state.selectedWorkItem);
-  } else {
-    url.searchParams.set('project', state.selectedProject);
-    if (state.selectedInternalFilter) url.searchParams.set('internal', state.selectedInternalFilter);
-  }
-  url.hash = '';
+  url.search = '';
+  if (state.view === 'home') url.hash = '';
+  else if (state.view === 'resume') url.hash = '/resume';
+  else if (state.mode === 'type') url.hash = '/works/' + (typeSlugs[state.selectedType] || 'all') + (state.selectedWorkItem ? '/' + state.selectedWorkItem : '');
+  else url.hash = '/projects/' + state.selectedProject + (state.selectedInternalFilter ? '/' + state.selectedInternalFilter : '');
   return url;
 }

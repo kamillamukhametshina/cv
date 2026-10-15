@@ -3,7 +3,6 @@ import { createMedia } from './media.js?v=22';
 import { createImageMarquee } from './image-marquee.js?v=5';
 import { createMediaHeading } from './media-heading.js';
 import { setupLumaReveal } from './fresh-luma.js?v=3';
-import { setupHorizontalDrag } from './horizontal-drag.js';
 import { mobileLayout } from './responsive.js';
 
 export function createFresh(section, scrollRoot = null) {
@@ -118,22 +117,7 @@ function setupVariants(row, items, root) {
         group.touching = false;
         group.nextChange = nextChange();
       }, { signal: abort.signal });
-      swipeDisposers.push(setupHorizontalDrag(layers, {
-        enabled: () => mobileLayout.matches,
-        end: dx => {
-          if (Math.abs(dx) < 24) return;
-          group.variant = 1 - group.variant;
-          group.nextChange = nextChange();
-          paint();
-        },
-      }));
     }
-  }
-  if (clothes) {
-    const hint = document.createElement('p');
-    hint.className = 'mobile-object-hint fresh-swipe-hint';
-    hint.textContent = 'Свайп по одежде — сменить сторону ↔';
-    row.append(hint);
   }
   function nextChange() { return performance.now() + 1900 + Math.random() * 2600; }
   function paint() {

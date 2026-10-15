@@ -1,4 +1,4 @@
-import { typography } from './typography.js?v=4';
+import { typography } from './typography.js?v=5';
 import { motionGlyphs } from './nml-motion-glyphs.js';
 import { createMedia } from './media.js?v=22';
 import { createImageMarquee } from './image-marquee.js?v=5';
@@ -125,7 +125,7 @@ export function createNML(scrollRoot = null) {
   social.append(socialGrid);
 
   const website = block('Digital / Главная страница', 'nml-website'); website.append(media('website'));
-  const footer = make('footer', 'nml-footer'); footer.append(make('span', '', 'New Media Lab / Конец кейса'));
+  const footer = make('footer', 'nml-footer');
   const back = make('button', '', 'К началу ↑'); back.type = 'button';
   on(back, 'click', () => (scrollRoot || window).scrollTo({ top: 0, behavior: paused ? 'auto' : 'smooth' })); footer.append(back); element.append(footer);
 

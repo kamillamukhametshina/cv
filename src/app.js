@@ -2,15 +2,15 @@ import { setupAnalytics } from './analytics.js?v=2';
 import { setupMobileRails } from './mobile-enhancements.js?v=3';
 import { mountFrameCover } from './frame-cover.js';
 import { frameCoverData } from './frame-cover-data.js';
-import { createResume } from './resume.js?v=5';
+import { createResume } from './resume.js?v=6';
 import { imageSource, coverVideoSource } from './mobile-media.js';
-import { createFlyHome } from './fly-home.js?v=9';
+import { createFlyHome } from './fly-home.js?v=10';
 import { spectrumVisibleSections } from './spectrum-sections.js';
 import { setupMobileNavigation } from './mobile-navigation.js?v=7';
 import { setupSidebarLayout } from './sidebar-layout.js?v=9';
 import { createDigitalWork } from './digital-work.js?v=14';
-import { createNML } from './nml.js?v=12';
-import { createFresh } from './fresh.js?v=7';
+import { createNML } from './nml.js?v=13';
+import { createFresh } from './fresh.js?v=8';
 import { createFDate } from './f-date.js?v=7';
 import { createCitydrive } from './citydrive.js?v=11';
 import { createDocumentArchive } from './document-archive.js?v=3';
@@ -18,7 +18,7 @@ import { createImageMarquee } from './image-marquee.js?v=5';
 import { createAdvertalyzeRbi } from './advertalyze-rbi.js?v=3';
 import { setupTechnicalUI } from './technical-ui.js?v=4';
 import { createMediaHeading } from './media-heading.js';
-import { createPosterWall } from './poster-wall.js?v=10';
+import { createPosterWall } from './poster-wall.js?v=11';
 import { createStickerPack } from './sticker-pack.js?v=8';
 import { createPhotowall } from './photowall.js?v=14';
 import { createStagePresentation } from './stage-presentation.js?v=8';
@@ -29,11 +29,11 @@ import { createComparison } from './comparison.js?v=6';
 import { mobileLayout, mediaScrollRoot } from './responsive.js';
 import { createPosterIntro } from './poster-intro.js?v=9';
 import { projects, workTypes, workItems, profile } from './data.js?v=83';
-import { normalizeState, readState, stateURL, defaultState, worksForType } from './state.js?v=80';
+import { normalizeState, readState, stateURL, defaultState, worksForType } from './state.js?v=81';
 import { createMedia, createGallery, observeVideos } from './media.js?v=22';
 import { setupInteractions } from './interactions.js?v=19';
 import { setupImageViewer, galleryForState } from './viewer.js?v=30';
-import { typography } from './typography.js?v=4';
+import { typography } from './typography.js?v=5';
 
 
 const list = document.querySelector('#project-list');
@@ -51,8 +51,8 @@ const technicalUI = setupTechnicalUI();
 const interactions = setupInteractions(stage, { isScrollLocked: () => viewer.isOpen });
 const rows = new Map();
 const filterButtons = new Map();
-let state = readState(location.search);
-if (mobileLayout.matches && state.view === 'projects' && state.selectedProject === 'spectrum' && !new URLSearchParams(location.search).has('internal')) state.selectedInternalFilter = 'all';
+let state = readState(location.search, location.hash);
+if (mobileLayout.matches && state.view === 'projects' && state.selectedProject === 'spectrum' && !new URLSearchParams(location.search).has('internal') && !location.hash.startsWith('#/projects/')) state.selectedInternalFilter = 'all';
 let revision = 0;
 let stopVideos = () => {};
 let stopMobileRails = () => {};
@@ -133,7 +133,7 @@ function contactLink(hostId, label, href, unavailableText) {
   document.getElementById(hostId).append(element);
 }
 const resumeLink = textElement('a', 'Резюме');
-resumeLink.href = '?view=resume';
+resumeLink.href = stateURL({ ...defaultState(), view:'resume' }, location.href);
 resumeLink.addEventListener('click', event => interceptPlainClick(event, () => {
   if (state.view === 'resume') navigate(previousWorksState, resumeLink);
   else { previousWorksState = { ...state, view:'projects' }; navigate({ view:'resume' }, stage); }
@@ -147,10 +147,11 @@ function syncShell() {
   const inProjects = !isHome && !isResume;
   document.documentElement.classList.toggle('is-resume-page', isResume);
   resumeLink.textContent = isResume ? 'Работы' : 'Резюме';
-  resumeLink.href = isResume ? stateURL(previousWorksState, location.href) : '?view=resume';
+  resumeLink.href = isResume ? stateURL(previousWorksState, location.href) : stateURL({ ...defaultState(), view:'resume' }, location.href);
   document.documentElement.classList.toggle('is-fly-home', isHome);
   document.documentElement.classList.toggle('nml-page', inProjects && state.mode === 'project' && state.selectedProject === 'new-media-lab');
-  document.querySelector('.skip-link').href = isResume || document.documentElement.classList.contains('nml-page') ? '#stage' : '#project-info';
+  document.querySelector('.skip-link').dataset.target = isResume || document.documentElement.classList.contains('nml-page') ? '#stage' : '#project-info';
+  document.querySelector('.skip-link').href = stateURL(state, location.href);
   // Resolve the same case background regardless of entry point or screen size.
   const selectedWork = state.mode === 'type' ? workItems.find(item => item.id === state.selectedWorkItem) : null;
   const backgroundProject = state.mode === 'project' ? state.selectedProject : selectedWork?.projectId;
@@ -787,10 +788,16 @@ function interceptPlainClick(event, callback) {
   event.preventDefault();
   callback();
 }
+document.querySelector('.skip-link').addEventListener('click', event => {
+  event.preventDefault();
+  const target = document.querySelector(event.currentTarget.dataset.target);
+  target?.scrollIntoView({block:'start'});
+  if (target) { target.tabIndex = -1; target.focus({preventScroll:true}); }
+});
 home.addEventListener('click', event => interceptPlainClick(event, () => { stage.scrollTop = 0; if (mobileLayout.matches) window.scrollTo(0, 0); navigate({ ...defaultState(), view: mobileLayout.matches ? 'home' : 'projects' }, home); }));
 window.addEventListener('popstate', () => {
   mobileNavigation.close(false);
-  state = readState(location.search);
+  state = readState(location.search, location.hash);
   pendingFocus = null;
   history.replaceState(null, '', stateURL(state, location.href));
   syncShell();

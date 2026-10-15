@@ -1,7 +1,7 @@
 import { silenceVideo } from './site-sound.js?v=3';
 import { mobileLayout } from './responsive.js';
 import { mediaItemFor, videoSource } from './media.js?v=22';
-import { typography } from './typography.js?v=4';
+import { typography } from './typography.js?v=5';
 import { setupHorizontalDrag } from './horizontal-drag.js';
 
 export const galleryMedia = items => items.filter(item => item.type === 'image' || item.type === 'video');

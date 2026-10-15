@@ -3,9 +3,9 @@ const shortWords = '(?:и|в|во|на|под|к|с|со|у|о|об|от|до|з
 const danglingWord = new RegExp(`(?<![\\p{L}\\p{N}_])(${shortWords})[ \\t\\u00a0]+(?=\\S)`, 'giu');
 export function typography(value, { afterColon = false } = {}) {
   let text = String(value ?? '');
-  if (afterColon) text = text.replace(/^(\s*[«“"(]*)(\p{Lu})/u, (_, prefix, letter) => prefix + letter.toLowerCase());
+  if (afterColon) text = text.replace(/^(\s*[«“"(]*)(\p{Lu})(?!\p{Lu})/u, (_, prefix, letter) => prefix + letter.toLowerCase());
   return text
-    .replace(/(:\s+[«“"(]*)(\p{Lu})/gu, (_, prefix, letter) => prefix + letter.toLowerCase())
+    .replace(/(:\s+[«“"(]*)(\p{Lu})(?!\p{Lu})/gu, (_, prefix, letter) => prefix + letter.toLowerCase())
     .replace(/(?<=[\p{L}\p{N}»”")])\.(?=\s|[}»”"]?\s*$)/gu, (dot, offset, source) => {
       const before = source.slice(0, offset);
       if (/^\d{1,2}$/.test(before) && /\S/.test(source.slice(offset + 1))) return dot;

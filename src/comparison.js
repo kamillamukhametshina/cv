@@ -1,4 +1,4 @@
-import { typography } from './typography.js?v=4';
+import { typography } from './typography.js?v=5';
 import { imageSource } from './mobile-media.js';
 import { setupHorizontalDrag } from './horizontal-drag.js';
 const demonstrated = new Set();

@@ -1,5 +1,5 @@
-import { createFlyHome } from './fly-home.js?v=9';
-import { typography } from './typography.js?v=4';
+import { createFlyHome } from './fly-home.js?v=10';
+import { typography } from './typography.js?v=5';
 
 export function createResume(downloadURL) {
   const element = document.createElement('article');
@@ -8,8 +8,8 @@ export function createResume(downloadURL) {
     <figure class="resume-portrait">
       <img class="resume-photo" src="./assets/about/portrait.webp" width="1000" height="1000" alt="Камилла Мухаметшина" fetchpriority="high">
       <div class="resume-fly" aria-hidden="true">
-        <img src="./assets/fly/fly-v3.png" alt="">
-        <video data-self-managed muted loop playsinline preload="metadata" src="./assets/fly/fly-v3.webm"></video>
+        <img src="./assets/fly/fly-final.png" alt="">
+        <video data-self-managed muted loop playsinline preload="metadata" src="./assets/fly/fly-final.webm"></video>
       </div>
     </figure>
     <div class="resume-details">

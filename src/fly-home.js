@@ -1,3 +1,4 @@
+import { createCatchCounter, catchStorageKey } from './fly-counter.js';
 export function flyPosition(width, height, size, previous, random = Math.random) {
   const maxX = Math.max(0, width - size), maxY = Math.max(0, height - size);
   let next;
@@ -44,15 +45,23 @@ export function createFlyHome({ minScale = .22, scaleRange = .36, challenge = '�
   fly.className = 'fly-home-object';
   fly.setAttribute('aria-label', 'Поймать муху');
   const image = document.createElement('img');
-  image.src = './assets/fly/fly-v3.png'; image.alt = ''; image.draggable = false;
+  image.src = './assets/fly/fly-final.png'; image.alt = ''; image.draggable = false;
   const video = document.createElement('video');
-  video.src = './assets/fly/fly-v3.webm'; video.muted = true; video.loop = true;
+  video.src = './assets/fly/fly-final.webm'; video.muted = true; video.loop = true;
   video.playsInline = true; video.preload = 'auto'; video.dataset.selfManaged = ''; video.setAttribute('aria-hidden', 'true');
   fly.append(image, video); playground.append(fly, swatter);
-  element.append(heading, playground, status);
+  const counter = document.createElement('p');
+  counter.className = 'fly-catch-counter';
+  let storage;
+  try { storage = window.localStorage; } catch { /* Storage may be disabled. */ }
+  const catches = createCatchCounter(storage);
+  const paintCount = () => { counter.textContent = `Поймано мух: ${catches.value}`; };
+  paintCount();
+  element.append(heading, counter, playground, status);
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const abort = new AbortController(), options = { signal: abort.signal };
   let size = 0, point, timer, releaseTimer, statusTimer, disposed = false, caught = false;
+  window.addEventListener('storage', event => { if (event.key === catchStorageKey) { catches.refresh(); paintCount(); } }, options);
   let round = createFlyRound();
   function move(resize = true) {
     const bounds = playground.getBoundingClientRect();
@@ -75,6 +84,8 @@ export function createFlyHome({ minScale = .22, scaleRange = .36, challenge = '�
     if (caught || disposed) return;
     if (!round.attempt()) { move(false); schedule(); return; }
     caught = true;
+    catches.increment();
+    paintCount();
     clearTimeout(timer); clearTimeout(statusTimer);
     video.pause();
     fly.setAttribute('aria-disabled', 'true');

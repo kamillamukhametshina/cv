@@ -1,4 +1,4 @@
-import { typography } from './typography.js?v=4';
+import { typography } from './typography.js?v=5';
 
 // Measure the entire archive once per viewport, so selecting a case never moves filters.
 export function setupSidebarLayout(projects, works) {

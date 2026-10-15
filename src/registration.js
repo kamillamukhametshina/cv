@@ -1,7 +1,7 @@
 import { createFloatingVideo } from './floating-video.js?v=5';
 import { createBadges } from './badges.js?v=8';
 import { createMedia } from './media.js?v=22';
-import { typography } from './typography.js?v=4';
+import { typography } from './typography.js?v=5';
 export function createRegistration(data, stage, badges = []) {
   const element = document.createElement('section');
   element.className = 'registration-content';

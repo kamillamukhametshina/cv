@@ -1,6 +1,6 @@
 import { registerSoundVideo, silenceVideo } from './site-sound.js?v=3';
 import { galleryModules } from './gallery.js';
-import { typography } from './typography.js?v=4';
+import { typography } from './typography.js?v=5';
 import { imageSource } from './mobile-media.js';
 import { mobileLayout } from './responsive.js';
 export const videoSource = item => item.safariSrc && typeof navigator !== 'undefined' && /Apple/.test(navigator.vendor) ? item.safariSrc : item.src;

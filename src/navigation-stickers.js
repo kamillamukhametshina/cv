@@ -1,4 +1,4 @@
-import { typography } from './typography.js?v=4';
+import { typography } from './typography.js?v=5';
 
 export function createNavigationStickers(data, scrollRoot) {
   const element = document.createElement('section');

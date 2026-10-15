@@ -1,6 +1,6 @@
 import { analyticsConfig } from './analytics-config.js';
 import { createAnalyticsController, productionCounter, readConsent, CONSENT_KEY } from './analytics-core.js';
-import { normalizeState, stateURL } from './state.js?v=80';
+import { normalizeState, stateURL } from './state.js?v=81';
 
 function loadMetrica() {
   return new Promise((resolve, reject) => {

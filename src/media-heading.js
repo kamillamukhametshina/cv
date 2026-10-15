@@ -1,4 +1,4 @@
-import { typography } from './typography.js?v=4';
+import { typography } from './typography.js?v=5';
 
 export function createMediaHeading(title, category) {
   const heading = document.createElement('p');

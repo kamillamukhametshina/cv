@@ -34,7 +34,7 @@ export function createPosterWall(data, scrollRoot) {
     if (onEntry === true) entryPending = true;
     clearTimeout(timer);
     if (!canRun() || !groups.some(group => group.visible)) { finish(); return; }
-    if (!activePair && !preparing) timer = setTimeout(glitch, entryPending ? 3000 : 200 + Math.random() * 200);
+    if (!activePair && !preparing) timer = setTimeout(glitch, entryPending ? 400 : 200 + Math.random() * 200);
   }
   async function glitch() {
     const available = groups.filter(group => group.visible);
