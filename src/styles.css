@@ -276,7 +276,7 @@ img[data-viewable]:focus-visible { outline: 1px dotted currentColor; outline-off
 .technical-cursor.is-left::before { left: 143px; }
 .technical-cursor.is-above { margin-top: -32px; }
 .technical-cursor.is-above::before { top: 25px; }
-.technical-feedback { position: fixed; left: var(--page-gutter); bottom: 28px; z-index: 2147483646; display: grid; gap: 4px; max-width: calc(100vw - 36px); padding: 10px 14px; pointer-events: none; color: #777; background: rgb(245 245 245 / .94); font: 10px/1.4 "Courier New", Courier, monospace; }
+.technical-feedback { position: fixed; left: var(--page-gutter); bottom: 28px; z-index: 2147483646; display: grid; gap: 4px; max-width: calc(100vw - 36px); padding: 10px 14px; pointer-events: none; color: #777; background: #fff; font: 10px/1.4 "Courier New", Courier, monospace; }
 @media (hover: hover) and (pointer: fine) {
   html.has-technical-cursor, html.has-technical-cursor * { cursor: none !important; }
 }
