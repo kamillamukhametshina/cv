@@ -154,10 +154,7 @@ function syncShell() {
   // Resolve the same case background regardless of entry point or screen size.
   const selectedWork = state.mode === 'type' ? workItems.find(item => item.id === state.selectedWorkItem) : null;
   const backgroundProject = state.mode === 'project' ? state.selectedProject : selectedWork?.projectId;
-  const backgroundSection = state.mode === 'project' ? state.selectedInternalFilter : selectedWork?.internalFilterId;
-  document.documentElement.classList.toggle('fresh-template-page', inProjects && backgroundProject === 'fresh-auto' && backgroundSection === 'template');
-  document.documentElement.classList.toggle('nml-presentation-page', inProjects && backgroundProject === 'new-media-lab' && backgroundSection === 'presentation');
-  document.documentElement.classList.toggle('digital-gray-page', inProjects && ((state.mode === 'type' && ['phoenix-online', 'region-steel', 'free-collection'].includes(state.selectedWorkItem)) || (backgroundProject === 'bitrix24' && ['stachka', 'techwriter-days'].includes(backgroundSection))));
+  document.documentElement.classList.toggle('white-project-page', inProjects && ['advertalyze', 'citydrive'].includes(backgroundProject));
   const related = state.mode === 'type' && inProjects
     ? workItems.find(item => item.id === state.selectedWorkItem)?.projectId : null;
   for (const project of projects) {
