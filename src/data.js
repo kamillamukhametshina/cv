@@ -51,7 +51,7 @@ export const profile = {
     'Обычно работаю в сжатые сроки. Хорошо делаю быстрые задачи.',
     'Здесь — избранные материалы проектов: фотографии, digital-макеты и печатный дизайн.',
   ],
-  resume: './assets/about/resume-design.pdf',
+  resume: './assets/about/resume-2026-10-16.pdf',
   telegram: 'https://t.me/kamillamukhametshina',
 };
 

@@ -1,4 +1,4 @@
-import { projects, workTypes, workItems } from './data.js?v=83';
+import { projects, workTypes, workItems } from './data.js?v=84';
 import { legacyTypes } from './work-items.js?v=20';
 export const matches = (item, type) => type === 'Все' || item.types.includes(type);
 export const worksForType = type => workItems.filter(item => matches(item, type));

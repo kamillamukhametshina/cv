@@ -28,7 +28,7 @@ import { createRegistration } from './registration.js?v=15';
 import { createComparison } from './comparison.js?v=6';
 import { mobileLayout, mediaScrollRoot } from './responsive.js';
 import { createPosterIntro } from './poster-intro.js?v=9';
-import { projects, workTypes, workItems, profile } from './data.js?v=83';
+import { projects, workTypes, workItems, profile } from './data.js?v=84';
 import { normalizeState, readState, stateURL, defaultState, worksForType } from './state.js?v=81';
 import { createMedia, createGallery, observeVideos } from './media.js?v=22';
 import { setupInteractions } from './interactions.js?v=19';
@@ -167,7 +167,7 @@ function syncShell() {
     button.setAttribute('aria-pressed', String(inProjects && state.mode === 'type' && type === state.selectedType));
   }
   syncInternalFilters();
-  home.href = stateURL({ ...defaultState(), view: mobileLayout.matches ? 'home' : 'projects' }, location.href);
+  home.href = stateURL({ ...defaultState(), view: 'home' }, location.href);
   interactions.refresh();
 }
 
@@ -794,7 +794,7 @@ document.querySelector('.skip-link').addEventListener('click', event => {
   target?.scrollIntoView({block:'start'});
   if (target) { target.tabIndex = -1; target.focus({preventScroll:true}); }
 });
-home.addEventListener('click', event => interceptPlainClick(event, () => { stage.scrollTop = 0; if (mobileLayout.matches) window.scrollTo(0, 0); navigate({ ...defaultState(), view: mobileLayout.matches ? 'home' : 'projects' }, home); }));
+home.addEventListener('click', event => interceptPlainClick(event, () => { stage.scrollTop = 0; if (mobileLayout.matches) window.scrollTo(0, 0); navigate({ ...defaultState(), view: 'home' }, home); }));
 window.addEventListener('popstate', () => {
   mobileNavigation.close(false);
   state = readState(location.search, location.hash);
