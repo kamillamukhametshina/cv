@@ -18,6 +18,7 @@ export function createComparison(data, scrollRoot) {
     image.alt = `${data.label} — ${side === 'before' ? 'до' : 'после'}`;
     image.width = data.width; image.height = data.height;
     image.loading = 'lazy'; image.decoding = 'async';
+    image.draggable = false;
     frame.append(image);
   }
   // Render unchanged details from the same source above both comparison layers.
@@ -28,6 +29,7 @@ export function createComparison(data, scrollRoot) {
     detail.src = imageSource(data.after); detail.alt = ''; detail.setAttribute('aria-hidden', 'true');
     detail.width = data.width; detail.height = data.height;
     detail.loading = 'lazy'; detail.decoding = 'async';
+    detail.draggable = false;
     detail.style.clipPath = `polygon(${polygon.map(([x, y]) => `${x / data.width * 100}% ${y / data.height * 100}%`).join(',')})`;
     frame.append(detail);
   }
@@ -79,6 +81,11 @@ export function createComparison(data, scrollRoot) {
     move: (_delta, event) => paintAt(event),
     end: (_delta, event) => paintAt(event),
   });
+  frame.addEventListener('pointerdown', event => {
+    if (event.isPrimary === false || (event.button != null && event.button !== 0)) return;
+    interact();
+    paintAt(event);
+  }, { signal: abort.signal });
   frame.addEventListener('click', event => {
     if (event.detail === 0) return;
     interact(); paintAt(event);

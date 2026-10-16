@@ -1,5 +1,5 @@
 import { createMedia } from './media.js?v=22';
-import { createComparison } from './comparison.js?v=6';
+import { createComparison } from './comparison.js?v=7';
 
 export function createFDate(data, filter, scrollRoot) {
   const element = document.createElement('section');

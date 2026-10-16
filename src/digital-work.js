@@ -1,5 +1,5 @@
 import { createSlideshow } from './photowall.js?v=14';
-import { createCycle, createCaseComparison, createSolarHero, createClubPattern, createClubBadge, createQrComparison } from './archive-case-interactions.js?v=5';
+import { createCycle, createCaseComparison, createSolarHero, createClubPattern, createClubBadge, createQrComparison } from './archive-case-interactions.js?v=6';
 import { createMedia } from './media.js?v=22';
 import { createImageMarquee } from './image-marquee.js?v=5';
 import { createMediaHeading } from './media-heading.js';

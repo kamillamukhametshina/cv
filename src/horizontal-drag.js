@@ -17,13 +17,17 @@ export function setupHorizontalDrag(element, { enabled = () => true, start = () 
     if (event.isPrimary === false) { gesture = null; return; }
     if ((event.button != null && event.button !== 0) || !enabled(event)) return;
     gesture = { id: event.pointerId, x: event.clientX, y: event.clientY, active: false };
+    // Capture immediately so a finger can keep controlling the element even
+    // when it slips outside its bounds. CSS touch-action still leaves vertical
+    // page scrolling to the browser.
+    element.setPointerCapture?.(event.pointerId);
   }, options);
   element.addEventListener('pointermove', event => {
     if (!gesture || event.pointerId !== gesture.id) return;
     const dx = event.clientX - gesture.x, dy = event.clientY - gesture.y;
     if (!gesture.active) {
-      if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx)) { gesture = null; return; }
-      if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy)) return;
+      if (Math.abs(dy) > 5 && Math.abs(dy) > Math.abs(dx)) { finish(event, true); return; }
+      if (Math.abs(dx) < 3 || Math.abs(dx) < Math.abs(dy)) return;
       gesture.active = true;
       element.setPointerCapture(event.pointerId);
       start(event);

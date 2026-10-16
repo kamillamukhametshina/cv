@@ -1,5 +1,5 @@
 import { createMedia } from './media.js?v=22';
-import { createComparison } from './comparison.js?v=6';
+import { createComparison } from './comparison.js?v=7';
 const el = (tag, className, text) => { const node=document.createElement(tag);node.className=className;if(text)node.textContent=text;return node; };
 // Timers only run while a block is visible. Manual choices persist until Auto is resumed.
 function clock(element, root, tick, delay) {

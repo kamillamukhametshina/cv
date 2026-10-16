@@ -256,8 +256,8 @@ img[data-viewable]:focus-visible { outline: 1px dotted currentColor; outline-off
 }
 
 .comparison { margin-bottom: 24px; }
-.comparison-frame { --split: 50%; position: relative; overflow: hidden; width: 100%; touch-action: pan-y pinch-zoom; cursor: ew-resize; user-select: none; -webkit-user-select: none; }
-.comparison-frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.comparison-frame { --split: 50%; position: relative; overflow: hidden; width: 100%; touch-action: pan-y pinch-zoom; cursor: ew-resize; user-select: none; -webkit-user-select: none; overscroll-behavior-x: contain; }
+.comparison-frame img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
 .comparison-before { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--split)) 0 0); }
 .comparison-divider { position: absolute; inset-block: 0; left: var(--split); width: 1px; background: white; pointer-events: none; }
 .comparison-handle { position: absolute; top: 50%; left: 0; transform: translate(-50%, -50%); width: 40px; height: 40px; display: grid; place-items: center; background: #fff; color: #171717; border-radius: 50%; font-size: 20px; }
@@ -835,6 +835,7 @@ body { isolation: isolate; }
 @media(max-width:600px) {
   .digital-row { gap:10px; }
   .digital-row-wide-four { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .digital-work-tender-pioneer > .digital-row-three:first-child { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .digital-row-phone .digital-phone { width:55%; }
   .work-detail-custom .work-detail-header { margin-bottom:24px; }
 }
